@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --detectOpenHandles",
+    "test-ci": "jest --detectOpenHandles --ci",
+    "start": "NODE_ENV=development node src/index.js",
+    "start-production": "NODE_ENV=production node src/index.js",
+    "start-dev": "PORT=55000 NODE_ENV=development nodemon src/index.js"
   },
   "repository": {
     "type": "git",

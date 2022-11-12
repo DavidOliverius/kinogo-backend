@@ -43,6 +43,17 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 
+require('dotenv').config();
+
+const firebaseAdmin = require('firebase-admin');
+firebaseAdmin.initializeApp({
+  credential: firebaseAdmin.credential.cert({
+    projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
+    clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
+    privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  }),
+});
+
 // Actual server behaviour
 app.get('/', (req, res) => {
   console.log('ExpressJS API homepage received a request.');

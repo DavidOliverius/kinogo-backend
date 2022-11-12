@@ -13,6 +13,7 @@ routes.get('/', (request, response) => {
 
 // Set up route params with the colon before the name.
 routes.get('/:blogID', (request, response) => {
+  console.log(request.params);
   response.json({
     message: `Received a request on ${request.originalUrl}`,
   });
@@ -20,8 +21,10 @@ routes.get('/:blogID', (request, response) => {
 
 // Use Postman or another HTTP tool to visit a POST route.
 routes.post('/:blogID', (request, response) => {
+  console.log(request.body);
   response.json({
     message: `Received a POST request for a blog post with ID of ${request.params.blogID}`,
+    bodyContent: request.body,
   });
 });
 

@@ -53,6 +53,9 @@ app.get('/', (req, res) => {
   });
 });
 
+const importedBlogRouting = require('./Blogs/BlogsRoutes');
+app.use('/blogs', importedBlogRouting);
+
 // Notice that we're not calling app.listen() anywhere in here.
 // This file contains just the setup/config of the server,
 // so that the server can be used more-simply for things like Jest testing.

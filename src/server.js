@@ -54,6 +54,8 @@ firebaseAdmin.initializeApp({
   }),
 });
 
+
+
 // Actual server behaviour
 app.get('/', (req, res) => {
   console.log('ExpressJS API homepage received a request.');
@@ -66,6 +68,9 @@ app.get('/', (req, res) => {
 
 const importedBlogRouting = require('./Blogs/BlogsRoutes');
 app.use('/blogs', importedBlogRouting);
+
+const importedUserRouting = require('./Users/UserRoutes');
+app.use('/users', importedUserRouting);
 
 // Notice that we're not calling app.listen() anywhere in here.
 // This file contains just the setup/config of the server,

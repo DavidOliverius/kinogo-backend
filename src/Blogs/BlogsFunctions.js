@@ -1,8 +1,10 @@
-const { Post } = require('../database/schemas/PostSchema');
+const { Post } = require('../database/schemas/PostsSchema');
 
 // Model.find() with no conditions inside "find()" will return all documents of that Model
 async function getAllPosts() {
   let allPosts = await Post.find();
+  // allPosts.foreach()
+
   return JSON.stringify(allPosts);
 }
 
@@ -19,6 +21,8 @@ async function createSpecificPost(postDetails) {
     postContent: postDetails.postContent,
     postAuthorID: postDetails.postAuthorID,
   });
+  // extra logic on the newPost before saving
+  // then save
   let creationResult = await newPost.save();
   return creationResult;
 }
@@ -44,6 +48,9 @@ async function updateSpecificPost(postDetails) {
 // Returns an empty object if all goes well.
 async function deleteSpecificPost(postID) {
   let deletionResult = await Post.deleteOne({ _id: postID });
+  // returns 1 if deleted 1 document
+  // returns 0 if deleted 0 documents
+  // should never return more than 1
   return deletionResult;
 }
 

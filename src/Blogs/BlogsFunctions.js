@@ -45,6 +45,11 @@ async function updateSpecificPost(postDetails) {
 
     return updateResult;
   } catch (error) {
+    if (error.name === 'CastError') {
+      return {
+        message: 'Invalid Post ID',
+      };
+    }
     return {
       error: error,
       errorCode: 'Failed to update document',

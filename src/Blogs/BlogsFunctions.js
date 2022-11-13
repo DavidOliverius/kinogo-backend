@@ -29,20 +29,27 @@ async function createSpecificPost(postDetails) {
 
 // Theoretically, you could use this instead of "new Post({})" thanks to upsert.
 async function updateSpecificPost(postDetails) {
-  let updateResult = await Post.findByIdAndUpdate(
-    { _id: postDetails.postID },
-    {
-      postTitle: postDetails.postTitle,
-      postContent: postDetails.postContent,
-      postAuthorID: postDetails.postAuthorID,
-    },
-    {
-      upsert: true, // upsert means it'll create document if it doesn't exist
-      new: true, // return the new modified doc. if false, original is returned.
-    }
-  );
+  try {
+    let updateResult = await Post.findByIdAndUpdate(
+      { _id: postDetails.postID },
+      {
+        postTitle: postDetails.postTitle,
+        postContent: postDetails.postContent,
+        postAuthorID: postDetails.postAuthorID,
+      },
+      {
+        upsert: true, // upsert means it'll create document if it doesn't exist
+        new: true, // return the new modified doc. if false, original is returned.
+      }
+    );
 
-  return updateResult;
+    return updateResult;
+  } catch (error) {
+    return {
+      error: error,
+      errorCode: 'Failed to update document',
+    };
+  }
 }
 
 // Returns an empty object if all goes well.

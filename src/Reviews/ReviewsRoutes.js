@@ -11,7 +11,6 @@ const {
 // Get all reviews
 routes.get("/", async (request, response) => {
   let reviewsResult = await getAllReviews();
-
   response.json(reviewsResult);
 });
 
@@ -24,8 +23,19 @@ routes.post("/", async (request, response) => {
     reviewApiID: request.body.reviewApiID,
     rating: request.body.rating,
   });
-
   response.json(creationResult);
+});
+
+// Update a review
+routes.put("/:reviewID", async (request, response) => {
+  let updateResult = await updateSpecificReview(request.params.reviewID, {
+    reviewTitle: request.body.reviewTitle,
+    reviewContent: request.body.reviewContent,
+    reviewAuthorID: request.body.reviewAuthorID,
+    reviewApiID: request.body.reviewApiID,
+    rating: request.body.rating,
+  });
+  response.json(updateResult);
 });
 
 // Find all reviews for specific Title

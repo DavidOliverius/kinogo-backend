@@ -5,7 +5,7 @@ const firebaseAdmin = require('firebase-admin');
 const { firebaseConfig } = require('../../keys/firebaseClientKey');
 const firebaseClient = require('firebase/app');
 // Add the Firebase products that you want to use
-const { getAuth, signInWithEmailAndPassword } = require('firebase/auth');
+const { getAuth, signInWithEmailAndPassword, updateProfile } = require('firebase/auth');
 // Initialize the Firebase Client SDK
 firebaseClient.initializeApp(firebaseConfig);
 

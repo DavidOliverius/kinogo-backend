@@ -58,7 +58,7 @@ routes.post('/sign-in', async (request, response) => {
   let userDetails = {
     email: request.body.email,
     password: request.body.password,
-    displayName: request.body.username,
+    // displayName: request.body.username,
   };
   // Ideally perform validation on those properties before moving on.
   // Not in the scope of this guide though! ;)

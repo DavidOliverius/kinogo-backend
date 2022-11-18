@@ -5,6 +5,7 @@ const {
   getAllReviews,
   createSpecificReview,
   getSpecificReviewID,
+  getSpecificReviewAuthorID,
 } = require("./ReviewsFunctions");
 
 // Get all reviews
@@ -27,9 +28,17 @@ routes.post("/", async (request, response) => {
   response.json(creationResult);
 });
 
-// Find all reviews with for specific Title
-routes.get("/:reviewApiID", async (request, response) => {
+// Find all reviews for specific Title
+routes.get("/titles/:reviewApiID", async (request, response) => {
   let specificReview = await getSpecificReviewID(request.params.reviewApiID);
+  response.json(specificReview);
+});
+
+// Find all reviews by specific user
+routes.get("/authors/:reviewAuthorID", async (request, response) => {
+  let specificReview = await getSpecificReviewAuthorID(
+    request.params.reviewAuthorID
+  );
   response.json(specificReview);
 });
 

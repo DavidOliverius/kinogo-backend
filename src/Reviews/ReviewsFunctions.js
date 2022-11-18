@@ -25,12 +25,21 @@ async function createSpecificReview(reviewDetails) {
 
 // Find all reviews with reviewAPI
 async function getSpecificReviewID(reviewApiID) {
-  let specificReview = await Review.find({ reviewApiID: reviewApiID });
-  return JSON.stringify(specificReview);
+  let allReviews = await Review.find({ reviewApiID: reviewApiID });
+  return JSON.stringify(allReviews);
 }
+
+// Find all reviews with reviewAuthorID
+async function getSpecificReviewAuthorID(reviewAuthorID) {
+  let allReviews = await Review.find
+  ({ reviewAuthorID: reviewAuthorID });
+  return JSON.stringify(allReviews);
+}
+
 
 module.exports = {
   getAllReviews,
   createSpecificReview,
   getSpecificReviewID,
+  getSpecificReviewAuthorID,
 };

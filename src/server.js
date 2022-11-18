@@ -58,8 +58,7 @@ const { databaseConnector } = require('./database');
 
 if (process.env.NODE_ENV != 'test') {
   const DATABASE_URI =
-    process.env.DATABASE_URI ||
-    'mongodb://localhost:27017/KinogoLocal';
+    process.env.DATABASE_URI || 'mongodb://localhost:27017/KinogoLocal';
   databaseConnector(DATABASE_URI)
     .then(() => {
       // if database connection succeeded, log a nice success message
@@ -92,6 +91,9 @@ app.use('/blogs', importedBlogRouting);
 const importedUserRouting = require('./Users/UserRoutes');
 app.use('/users', importedUserRouting);
 
+const importedReviewRouting = require('./Reviews/ReviewsRoutes');
+app.use('/reviews', importedReviewRouting);
+  
 // Notice that we're not calling app.listen() anywhere in here.
 // This file contains just the setup/config of the server,
 // so that the server can be used more-simply for things like Jest testing.

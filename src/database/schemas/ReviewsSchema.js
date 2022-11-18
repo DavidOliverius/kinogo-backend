@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const ReviewSchema = new mongoose.Schema({
   reviewTitle: String,
   reviewContent: String,
+  reviewApiID: String,
   reviewAuthorID: String,
   createdAt: {
     type: Date,
@@ -13,6 +14,11 @@ const ReviewSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: () => Date.now(),
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5,
   },
 });
 
@@ -26,6 +32,6 @@ ReviewSchema.methods.getAuthorName = async function getAuthorName() {
 };
 
 // Class / model to help make instances of that schema
-const Post = mongoose.model('Review', ReviewSchema);
+const Review = mongoose.model('Review', ReviewSchema);
 
 module.exports = { Review };

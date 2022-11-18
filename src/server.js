@@ -1,14 +1,14 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors');
-const helmet = require('helmet');
+const cors = require("cors");
+const helmet = require("helmet");
 
 // Set values for the server's address
 const PORT = process.env.PORT || 0;
-const HOST = '0.0.0.0';
+const HOST = "0.0.0.0";
 
 // Cool trick for when promises or other complex callstack things are crashing & breaking:
-void process.on('unhandledRejection', (reason, p) => {
+void process.on("unhandledRejection", (reason, p) => {
   console.log(`Things got pretty major here! Big error:\n` + p);
   console.log(`That error happened because of:\n` + reason);
 });
@@ -38,31 +38,31 @@ app.use(express.urlencoded({ extended: true }));
 // eg. React app at localhost:3000 and deployedApp.com can communicate to this API,
 // but a React app at localhost:3001 or SomeRandomWebsite.com can NOT communicate to this API.
 var corsOptions = {
-  origin: ['http://localhost:3000', 'https://deployedApp.com'],
+  origin: ["http://localhost:3000", "https://deployedApp.com"],
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
-require('dotenv').config();
+require("dotenv").config();
 
-const firebaseAdmin = require('firebase-admin');
+const firebaseAdmin = require("firebase-admin");
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert({
     projectId: process.env.FIREBASE_ADMIN_PROJECT_ID,
     clientEmail: process.env.FIREBASE_ADMIN_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    privateKey: process.env.FIREBASE_ADMIN_PRIVATE_KEY.replace(/\\n/g, "\n"),
   }),
 });
 
-const { databaseConnector } = require('./database');
+const { databaseConnector } = require("./database");
 
-if (process.env.NODE_ENV != 'test') {
+if (process.env.NODE_ENV != "test") {
   const DATABASE_URI =
-    process.env.DATABASE_URI || 'mongodb://localhost:27017/KinogoLocal';
+    process.env.DATABASE_URI || "mongodb://localhost:27017/KinogoLocal";
   databaseConnector(DATABASE_URI)
     .then(() => {
       // if database connection succeeded, log a nice success message
-      console.log('Database connected, woohoo!');
+      console.log("Database connected, woohoo!");
     })
     .catch((error) => {
       // if database connection failed, log the error
@@ -76,24 +76,24 @@ if (process.env.NODE_ENV != 'test') {
 // --- Config above, functions below ---
 
 // Actual server behaviour
-app.get('/', (req, res) => {
-  console.log('ExpressJS API homepage received a request.');
+app.get("/", (req, res) => {
+  console.log("ExpressJS API homepage received a request.");
 
-  const target = process.env.NODE_ENV || 'not yet set';
+  const target = process.env.NODE_ENV || "not yet set";
   res.json({
     message: `Hello ${target} world!`,
   });
 });
 
-const importedBlogRouting = require('./Blogs/BlogsRoutes');
-app.use('/blogs', importedBlogRouting);
+const importedBlogRouting = require("./Blogs/BlogsRoutes");
+app.use("/blogs", importedBlogRouting);
 
-const importedUserRouting = require('./Users/UserRoutes');
-app.use('/users', importedUserRouting);
+const importedUserRouting = require("./Users/UserRoutes");
+app.use("/users", importedUserRouting);
 
-const importedReviewRouting = require('./Reviews/ReviewsRoutes');
-app.use('/reviews', importedReviewRouting);
-  
+const importedReviewRouting = require("./Reviews/ReviewsRoutes");
+app.use("/reviews", importedReviewRouting);
+
 // Notice that we're not calling app.listen() anywhere in here.
 // This file contains just the setup/config of the server,
 // so that the server can be used more-simply for things like Jest testing.

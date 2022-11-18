@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 
 const routes = express.Router();
 
@@ -6,10 +6,10 @@ const {
   signUpUser,
   signInUser,
   validateUserSession,
-} = require('./UserFunctions');
+} = require("./UserFunctions");
 
 // Create a user, a session token & a refresh token
-routes.post('/sign-up', async (request, response) => {
+routes.post("/sign-up", async (request, response) => {
   // Process posted form/json data
   let newUserDetails = {
     email: request.body.email,
@@ -27,7 +27,7 @@ routes.post('/sign-up', async (request, response) => {
   // Return error or token as response
   if (signUpResult.error != null) {
     console.log(
-      'Stopping the signup process due to an error. See logs for details.'
+      "Stopping the signup process due to an error. See logs for details."
     );
     response.json(signUpResult);
     return;
@@ -42,7 +42,7 @@ routes.post('/sign-up', async (request, response) => {
   // If an error message exists, return that.
   if (signInResult.error != null) {
     console.log(
-      'Stopping the signup process due to an error. See logs for details.'
+      "Stopping the signup process due to an error. See logs for details."
     );
     response.json(signInResult);
     return;
@@ -53,7 +53,7 @@ routes.post('/sign-up', async (request, response) => {
 });
 
 // Create a session token & refresh token
-routes.post('/sign-in', async (request, response) => {
+routes.post("/sign-in", async (request, response) => {
   // Process posted form/json data
   let userDetails = {
     email: request.body.email,
@@ -72,7 +72,7 @@ routes.post('/sign-in', async (request, response) => {
   // If an error message exists, return that.
   if (signInResult.error != null) {
     console.log(
-      'Stopping the signup process due to an error. See logs for details.'
+      "Stopping the signup process due to an error. See logs for details."
     );
     response.json(signInResult);
     return;
@@ -83,7 +83,7 @@ routes.post('/sign-in', async (request, response) => {
 });
 
 // Create a session token & refresh token
-routes.post('/validate-session', async (request, response) => {
+routes.post("/validate-session", async (request, response) => {
   // Process posted form/json data
   let sessionDetails = {
     idToken: request.body.idToken,

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 // Schema to structure the data
 const PostSchema = new mongoose.Schema({
@@ -17,6 +17,6 @@ PostSchema.methods.getAuthorName = async function getAuthorName() {
 };
 
 // Class / model to help make instances of that schema
-const Post = mongoose.model('Post', PostSchema);
+const Post = mongoose.model("Post", PostSchema);
 
 module.exports = { Post };

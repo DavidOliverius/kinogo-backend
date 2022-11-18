@@ -1,11 +1,15 @@
 // Firebase Admin SDK was initialized elsewhere, we just need access to its functions.
-const firebaseAdmin = require('firebase-admin');
+const firebaseAdmin = require("firebase-admin");
 
 // Set up the Firebase Client SDK
-const { firebaseConfig } = require('../../keys/firebaseClientKey');
-const firebaseClient = require('firebase/app');
+const { firebaseConfig } = require("../../keys/firebaseClientKey");
+const firebaseClient = require("firebase/app");
 // Add the Firebase products that you want to use
-const { getAuth, signInWithEmailAndPassword, updateProfile } = require('firebase/auth');
+const {
+  getAuth,
+  signInWithEmailAndPassword,
+  updateProfile,
+} = require("firebase/auth");
 // Initialize the Firebase Client SDK
 firebaseClient.initializeApp(firebaseConfig);
 
@@ -39,7 +43,7 @@ async function signUpUser(userDetails) {
         .setCustomUserClaims(userRecord.uid, { regularUser: true })
         .then(() => {
           console.log(
-            'Set a regularUser claim to the new user! They must log in again to get the new access.'
+            "Set a regularUser claim to the new user! They must log in again to get the new access."
           );
           // You can do things like detect values in the email address (eg. if the new user email is the project admin email) and set the claim object to include other values.
           // Claims allow you to handle authorization without ever giving the client any data that they could hack or manipulate.
@@ -49,7 +53,7 @@ async function signUpUser(userDetails) {
       return userRecord;
     })
     .catch((error) => {
-      console.log('Internal sign-up function error is: \n' + error);
+      console.log("Internal sign-up function error is: \n" + error);
       return { error: error };
     });
 }
@@ -80,7 +84,7 @@ async function signInUser(userDetails) {
       };
     })
     .catch((error) => {
-      console.log('Internal signin function error is: \n' + error);
+      console.log("Internal signin function error is: \n" + error);
       return { error: error };
     });
 
@@ -104,14 +108,14 @@ async function validateUserSession(sessionDetails) {
       };
     })
     .catch((error) => {
-      if (error.code == 'auth/id-token-revoked') {
+      if (error.code == "auth/id-token-revoked") {
         // Token has been revoked. Inform the user to reauthenticate or signOut() the user.
         console.log(
-          'You must sign in again to access this. Full error is: \n' + error
+          "You must sign in again to access this. Full error is: \n" + error
         );
       } else {
         // Token is invalid.
-        console.log('Session token is invalid. Full error is: \n' + error);
+        console.log("Session token is invalid. Full error is: \n" + error);
       }
 
       return { error: error };

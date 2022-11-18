@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 
 // Create a bundle of routes. We'll export this out and then import it into src/index.js.
 const routes = express.Router();
@@ -9,12 +9,12 @@ const {
   createSpecificPost,
   updateSpecificPost,
   deleteSpecificPost,
-} = require('./BlogsFunctions');
+} = require("./BlogsFunctions");
 
 // This is the "root" route for the Router instance.
 // Its actual name in the URL will depend on how it's configured in src/index.js
 // localhost:55000/Bananas/
-routes.get('/', async (request, response) => {
+routes.get("/", async (request, response) => {
   let postsResult = await getAllPosts();
 
   response.json(postsResult);
@@ -25,7 +25,7 @@ routes.get('/', async (request, response) => {
 });
 
 // Set up route params with the colon before the name.
-routes.get('/:blogID', async (request, response) => {
+routes.get("/:blogID", async (request, response) => {
   let singleBlogPost = await getSpecificPost(request.params.blogID);
   response.json(singleBlogPost);
 
@@ -35,7 +35,7 @@ routes.get('/:blogID', async (request, response) => {
 });
 
 // Use Postman or another HTTP tool to visit a POST route.
-routes.post('/', async (request, response) => {
+routes.post("/", async (request, response) => {
   let creationResult = await createSpecificPost({
     postTitle: request.body.postTitle,
     postContent: request.body.postContent,
@@ -52,12 +52,12 @@ routes.post('/', async (request, response) => {
   // });
 });
 
-routes.delete('/:postID', async (request, response) => {
+routes.delete("/:postID", async (request, response) => {
   let deleteResult = await deleteSpecificPost(request.params.postID);
   response.json(deleteResult);
 });
 
-routes.put('/:postID', async (request, response) => {
+routes.put("/:postID", async (request, response) => {
   let updateResult = await updateSpecificPost({
     postID: request.params.postID,
     postTitle: request.body.postTitle,

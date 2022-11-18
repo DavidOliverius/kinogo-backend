@@ -1,4 +1,4 @@
-const { Post } = require('../database/schemas/PostsSchema');
+const { Post } = require("../database/schemas/PostsSchema");
 
 // Model.find() with no conditions inside "find()" will return all documents of that Model
 async function getAllPosts() {
@@ -45,14 +45,14 @@ async function updateSpecificPost(postDetails) {
 
     return updateResult;
   } catch (error) {
-    if (error.name === 'CastError') {
+    if (error.name === "CastError") {
       return {
-        message: 'Invalid Post ID',
+        message: "Invalid Post ID",
       };
     }
     return {
       error: error,
-      errorCode: 'Failed to update document',
+      errorCode: "Failed to update document",
     };
   }
 }

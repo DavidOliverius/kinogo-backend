@@ -1,4 +1,4 @@
-var { app, PORT, HOST } = require('./server');
+var { app, PORT, HOST } = require("./server");
 
 // Separate the "app.listen" from the rest of the server config & setup.
 // This allows us to simplify how the server unit testing is gonna work.

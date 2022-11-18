@@ -1,4 +1,4 @@
-const { Review } = require('../database/schemas/ReviewsSchema');
+const { Review } = require("../database/schemas/ReviewsSchema");
 
 // Model.find() with no conditions inside "find()" will return all documents of that Model
 async function getAllReviews() {

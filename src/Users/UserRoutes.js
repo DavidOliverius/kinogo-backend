@@ -13,17 +13,15 @@ routes.post("/sign-up", async (request, response) => {
   // Process posted form/json data
   // Ideally perform validation on those properties before moving on.
   // Not in the scope of this guide though! ;)
+
+  // new user details
   const { email, password, displayName } = request.body;
-  const newUserDetails = {
+
+  // Hand data to a sign-up function
+  const signUpResult = await signUpUser({
     email,
     password,
     displayName,
-  };
-  // Hand data to a sign-up function
-  const signUpResult = await signUpUser({
-    email: newUserDetails.email,
-    password: newUserDetails.password,
-    displayName: newUserDetails.displayName,
   });
 
   // Return error or token as response
@@ -36,8 +34,8 @@ routes.post("/sign-up", async (request, response) => {
 
   // Sign in to get latest user claims (authorization).
   const signInResult = await signInUser({
-    email: newUserDetails.email,
-    password: newUserDetails.password,
+    email,
+    password,
   });
 
   // If an error message exists, return that.
@@ -54,18 +52,13 @@ routes.post("/sign-up", async (request, response) => {
 routes.post("/sign-in", async (request, response) => {
   // Process posted form/json data
   const { email, password } = request.body;
-
-  const userDetails = {
-    email,
-    password,
-  };
   // Ideally perform validation on those properties before moving on.
   // Not in the scope of this guide though! ;)
 
   // Hand data to a sign-in function
   const signInResult = await signInUser({
-    email: userDetails.email,
-    password: userDetails.password,
+    email,
+    password,
   });
 
   // If an error message exists, return that.
@@ -83,15 +76,10 @@ routes.post("/validate-session", async (request, response) => {
   // Process posted form/json data
   const { idToken, refreshToken } = request.body;
 
-  const sessionDetails = {
-    idToken,
-    refreshToken,
-  };
-
   // Hand data to a validation function
   const validationResult = await validateUserSession({
-    refreshToken: sessionDetails.refreshToken,
-    idToken: sessionDetails.idToken,
+    refreshToken,
+    idToken,
   });
 
   // If an error message exists, return that.
@@ -102,9 +90,6 @@ routes.post("/validate-session", async (request, response) => {
     return response.status(401).json(validationResult);
   }
   return response.status(200).json(validationResult);
-
-  // // Return error or token as response
-  // response.json(validationResult);
 });
 
 module.exports = routes;

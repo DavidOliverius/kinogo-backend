@@ -14,14 +14,7 @@ const {
 firebaseClient.initializeApp(firebaseConfig);
 
 // ----------- Config above, functions below -------------
-/*
- userDetails = {
-    username: "olahabsa",
-    email:"whaogihjadsg",
-    password:'caosjncalkcna'
- }
 
-*/
 async function signUpUser(userDetails) {
   // Use the Firebase Admin SDK to create the user
   return firebaseAdmin
@@ -35,26 +28,17 @@ async function signUpUser(userDetails) {
       disabled: false, // if a user is banned/usable
     })
     .then(async (userRecord) => {
-      console.log(`\n Raw userRecord is ${JSON.stringify(userRecord)} \n`);
-
-      // Set "Custom Claims" on the new user
-      let defaultUserClaims = firebaseAdmin
-        .auth()
-        .setCustomUserClaims(userRecord.uid, { regularUser: true })
-        .then(() => {
-          console.log(
-            "Set a regularUser claim to the new user! They must log in again to get the new access."
-          );
-          // You can do things like detect values in the email address (eg. if the new user email is the project admin email) and set the claim object to include other values.
-          // Claims allow you to handle authorization without ever giving the client any data that they could hack or manipulate.
-          // Of course, you can still pass the claims along to the client if you want to (eg. for front-end authorization to hide content), just know that front-end authorization isn't bulletproof.
-        });
-
-      return userRecord;
+      // The user was created successfully, now we can update the user's profile
+      await updateProfile(userRecord.uid, {
+        displayName: userDetails.displayName,
+      });
+      // Return the user's ID
+      return userRecord.uid;
     })
     .catch((error) => {
-      console.log("Internal sign-up function error is: \n" + error);
-      return { error: error };
+      // Handle errors
+      console.log("Error creating new user:", error);
+      return error;
     });
 }
 

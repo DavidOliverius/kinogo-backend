@@ -14,7 +14,7 @@ routes.post("/sign-up", async (request, response) => {
   let newUserDetails = {
     email: request.body.email,
     password: request.body.password,
-    displayName: request.body.username,
+    displayName: request.body.displayName,
   };
   // Ideally perform validation on those properties before moving on.
   // Not in the scope of this guide though! ;)
@@ -23,6 +23,7 @@ routes.post("/sign-up", async (request, response) => {
   let signUpResult = await signUpUser({
     email: newUserDetails.email,
     password: newUserDetails.password,
+    displayName: newUserDetails.displayName,
   });
   // Return error or token as response
   if (signUpResult.error != null) {

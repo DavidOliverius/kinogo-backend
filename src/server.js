@@ -38,7 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 // eg. React app at localhost:3000 and deployedApp.com can communicate to this API,
 // but a React app at localhost:3001 or SomeRandomWebsite.com can NOT communicate to this API.
 var corsOptions = {
-  origin: ["http://localhost:3000", "https://deployedApp.com"],
+  origin: ["http://localhost:3000", "https://kinogo-production.netlify.app/"],
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));

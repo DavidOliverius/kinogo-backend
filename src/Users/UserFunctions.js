@@ -106,8 +106,22 @@ async function validateUserSession(sessionDetails) {
     });
 }
 
+async function getDisplayNameFromUID(uid) {
+  return firebaseAdmin
+    .auth()
+    .getUser(uid)
+    .then((userRecord) => {
+      return userRecord.displayName;
+    })
+    .catch((error) => {
+      console.log("Error fetching user data:", error);
+      return error;
+    });
+}
+
 module.exports = {
   signUpUser,
   signInUser,
   validateUserSession,
+  getDisplayNameFromUID,
 };

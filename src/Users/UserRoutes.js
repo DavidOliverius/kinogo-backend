@@ -6,6 +6,7 @@ const {
   signUpUser,
   signInUser,
   validateUserSession,
+  getDisplayNameFromUID,
 } = require("./UserFunctions");
 
 // Create a user, a session token & a refresh token
@@ -27,7 +28,9 @@ routes.post("/sign-up", async (request, response) => {
   // Return error or token as response
   if (signUpResult.error || signUpResult.errorInfo) {
     console.log(
-      `Stopping the signup process due to an error. ${signUpResult.error || signUpResult.errorInfo.message}`
+      `Stopping the signup process due to an error. ${
+        signUpResult.error || signUpResult.errorInfo.message
+      }`
     );
     return response.status(401).json(signUpResult);
   }
@@ -90,6 +93,20 @@ routes.post("/validate-session", async (request, response) => {
     return response.status(401).json(validationResult);
   }
   return response.status(200).json(validationResult);
+});
+
+routes.get("/username/:uid", async (request, response) => {
+  const { uid } = request.params;
+
+  const displayName = await getDisplayNameFromUID(uid);
+
+  if (displayName.error) {
+    console.log(
+      `Stopping the signup process due to an error. ${displayName.error}`
+    );
+    return response.status(401).json(displayName);
+  }
+  return response.status(200).json(displayName);
 });
 
 module.exports = routes;

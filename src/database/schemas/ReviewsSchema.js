@@ -2,10 +2,10 @@ const mongoose = require("mongoose");
 
 // Schema to structure the data
 const ReviewSchema = new mongoose.Schema({
-  reviewTitle: String,
   reviewContent: String,
   reviewApiID: String,
   reviewAuthorID: String,
+  user: String,
   createdAt: {
     type: Date,
     immutable: true,

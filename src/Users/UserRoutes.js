@@ -95,6 +95,7 @@ routes.post("/validate-session", async (request, response) => {
   return response.status(200).json(validationResult);
 });
 
+// Return a user's display name from their UID
 routes.get("/username/:uid", async (request, response) => {
   const { uid } = request.params;
 

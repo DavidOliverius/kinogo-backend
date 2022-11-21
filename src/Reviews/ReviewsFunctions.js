@@ -38,6 +38,12 @@ async function updateSpecificReview(reviewID, reviewDetails) {
   return updateResult;
 }
 
+// Delete specific review
+async function deleteSpecificReview(postID) {
+  let deletionResult = await Review.deleteOne({ _id: postID });
+  return deletionResult;
+}
+
 // Find all reviews with reviewApiID (title)
 async function getSpecificReviewID(reviewApiID) {
   let allReviews = await Review.find({ reviewApiID: reviewApiID });
@@ -55,4 +61,6 @@ module.exports = {
   createSpecificReview,
   getSpecificReviewID,
   getSpecificReviewAuthorID,
+  updateSpecificReview,
+  deleteSpecificReview,
 };

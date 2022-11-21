@@ -6,6 +6,8 @@ const {
   createSpecificReview,
   getSpecificReviewID,
   getSpecificReviewAuthorID,
+  updateSpecificReview,
+  deleteSpecificReview,
 } = require("./ReviewsFunctions");
 
 // Get all reviews
@@ -17,7 +19,6 @@ routes.get("/", async (request, response) => {
 // Create a new review
 routes.post("/", async (request, response) => {
   let creationResult = await createSpecificReview({
-    reviewTitle: request.body.reviewTitle,
     reviewContent: request.body.reviewContent,
     reviewAuthorID: request.body.reviewAuthorID,
     reviewApiID: request.body.reviewApiID,
@@ -29,13 +30,16 @@ routes.post("/", async (request, response) => {
 // Update a review
 routes.put("/:reviewID", async (request, response) => {
   let updateResult = await updateSpecificReview(request.params.reviewID, {
-    reviewTitle: request.body.reviewTitle,
     reviewContent: request.body.reviewContent,
-    reviewAuthorID: request.body.reviewAuthorID,
-    reviewApiID: request.body.reviewApiID,
     rating: request.body.rating,
   });
   response.json(updateResult);
+});
+
+// Delete a review
+routes.delete("/:reviewID", async (request, response) => {
+  let deleteResult = await deleteSpecificReview(request.params.reviewID);
+  response.json(deleteResult);
 });
 
 // Find all reviews for specific Title
